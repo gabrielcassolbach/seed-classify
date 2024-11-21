@@ -1,3 +1,4 @@
+from picamera2 import Picamera2, Preview
 import cv2
 import sys
 
@@ -9,8 +10,8 @@ class CameraManager:
         if(camera_type == "usb"):
             self.camera = cv2.VideoCapture(self.usb_camera_index) 
         elif (camera_type == "picamera"):
-            # ---- add code.
-            raise ValueError("no camera!") 
+            self.camera = Picamera2()
+            self.camera.configure(self.camera.create_still_configuration())
         else:
             raise ValueError("no camera!") 
         
@@ -23,7 +24,10 @@ class CameraManager:
                 sys.exit(1)
             return image   
         else:
-            print("implementar")
+            self.camera.start()
+            image = self.camera.capture_array()
+            self.camera.stop()
+            return image
         
     def releaseCamera(self):
         if(self.camera_type == "usb"):

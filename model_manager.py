@@ -35,8 +35,8 @@ class ModelManager:
             print('Max value: %.2f' % max_value)
             print('Mean value: %.2f' % mean_value)
         
-    def saveImage(self): 
-        cv2.imwrite('captured_image.jpg', cv2.cvtColor(self.cropped, cv2.COLOR_RGB2BGR))  # Salva a imagem processada para depuração
+    def saveImage(self, image): 
+        cv2.imwrite('captured_image.jpg', cv2.cvtColor(image, cv2.COLOR_RGB2BGR))  # Salva a imagem processada para depuração
 
     def releaseRunner(self):
         self.runner.stop()    

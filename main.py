@@ -28,14 +28,14 @@ def main(argv):
     dir_path = os.path.dirname(os.path.realpath(__file__))
     modelfile = os.path.join(dir_path, model)
 
-    camera = CameraManager()
+    camera = CameraManager(camera_type="picamera")
     modelManager = ModelManager(modelfile)
     
     image = camera.takePicture()
     image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)  # Converte a imagem para RGB
     
     modelManager.classifyImage(image)
-    modelManager.saveImage()
+    modelManager.saveImage(image)
        
     camera.releaseCamera()
     modelManager.releaseRunner()
