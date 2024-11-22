@@ -12,11 +12,12 @@ class ModelManager:
         features, self.cropped = self.runner.get_features_from_image_auto_studio_setings(image) # Extrai as features da imagem
         res = self.runner.classify(features) # Classifica a imagem usando o modelo do Edge Impulse
         if "classification" in res["result"].keys():
-            print('Resultado (%d ms.) ' % (res['timing']['dsp'] + res['timing']['classification']), end='')
-            for label in self.labels:
-                score = res['result']['classification'][label]
-                print('%s: %.2f\t' % (label, score), end='')
-            print('', flush=True)
+            #print('Resultado (%d ms.) ' % (res['timing']['dsp'] + res['timing']['classification']), end='')
+            #for label in self.labels:
+            #    score = res['result']['classification'][label]
+            #    print('%s: %.2f\t' % (label, score), end='')
+            #print('', flush=True)
+            return res['result']['classification']
 
         elif "bounding_boxes" in res["result"].keys():
             print('Encontrados %d bounding boxes (%d ms.)' % (len(res["result"]["bounding_boxes"]), res['timing']['dsp'] + res['timing']['classification']))
