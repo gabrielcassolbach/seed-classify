@@ -4,6 +4,8 @@ opencv-python==4.10.0.84
 psutil==6.1.0
 PyAudio==0.2.14
 six==1.16.0
+bleak==0.22.3
+asyncio==3.4.3
 av==13.1.0
 picamera2==0.3.21
 pidng==4.0.9
