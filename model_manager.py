@@ -7,6 +7,7 @@ class ModelManager:
         self.runner = ImageImpulseRunner(self.model_path)
         self.labels = self.runner.init()['model_parameters']['labels']
         self.cropped = None
+        self.i = 0
 
     def classifyImage(self, image):
         features, self.cropped = self.runner.get_features_from_image_auto_studio_setings(image) # Extrai as features da imagem
@@ -37,7 +38,9 @@ class ModelManager:
             print('Mean value: %.2f' % mean_value)
         
     def saveImage(self, image): 
-        cv2.imwrite('captured_image.jpg', cv2.cvtColor(image, cv2.COLOR_RGB2BGR))  # Salva a imagem processada para depuração
+        print("image: ", self.i)
+        cv2.imwrite('final_image.jpg', image)  # Salva a imagem processada para depuração
+        self.i += 1
 
     def releaseRunner(self):
         self.runner.stop()    
