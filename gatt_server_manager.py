@@ -10,7 +10,9 @@ from ble_gatt_server.advertisement import Advertisement
 from ble_gatt_server.service import Application, Service, Characteristic, Descriptor
 
 GATT_CHRC_IFACE = "org.bluez.GattCharacteristic1"
-NOTIFY_TIMEOUT = 6000  # Interval for notifications
+NOTIFY_TIMEOUT = 3000  # Interval for notifications
+
+serialManager = SerialManager()
 
 # Load JSON data
 def load_process_data():
@@ -44,7 +46,7 @@ class ProcessService(Service):
 
     def get_process_data(self):
         """Reads and returns the processes from the JSON file."""
-        return self.process_data
+        return load_process_data()
 
     def clear_data(self):
         """Clears the processes in the JSON file."""
@@ -89,7 +91,7 @@ class ProcessCharacteristic(Characteristic):
             
             # Optionally clear data after sending the finish message
             self.service.clear_data()  # Uncomment this line to clear data
-            
+            serialManager.sendMessage("set_idle")
             
             # self.StopNotify()  # Stop notifications (Not needed because user server can notify at multiple times)
             return False  # Stop notifications after finishing
@@ -106,7 +108,10 @@ class ProcessCharacteristic(Characteristic):
         print("Start notify process service", flush=True)
 
         #TODO: verify if it works, because we have 2 managers, one in each thread
-        #serialManager.sendMessage("set_sync")
+        try:
+            serialManager.sendMessage("set_sync")
+        except:
+            print("Error on serial")
 
         self.add_timeout(NOTIFY_TIMEOUT, self.send_all_processes)
 

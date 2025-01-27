@@ -1,1 +1,24 @@
-{"processes": []}
+{
+    "processes": [
+        {
+            "processId": "Process_001",
+            "classificationSummary": {
+                "Pure": 109,
+                "Broken": 6,
+                "silkcut": 82,
+                "Unknown": 7
+            },
+            "timestamp": "2024-12-20T13:30:21Z"
+        },
+        {
+            "processId": "Process_002",
+            "classificationSummary": {
+                "Pure": 38,
+                "Broken": 6,
+                "silkcut": 39,
+                "Unknown": 4
+            },
+            "timestamp": "2024-12-20T20:56:41Z"
+        }
+    ]
+}

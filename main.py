@@ -10,21 +10,35 @@ from gatt_server_manager import BleApplication, MachineProcessAdvertisement, Pro
 from storage_manager import StorageManager
 from time import sleep
 
+ITERATOR = 0
+
 def seed_processing(modelManager, camera):
+    global ITERATOR
     image = camera.takePicture()
-    
+    # cv2.imwrite("raw_images/raw_image"+str(ITERATOR)+".jpg", image)
+
     # test if it is needed to convert the image
     # image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)  # Converte a imagem para RGB
     # modelManager.saveImage(image)                   # Debug
+    try:
+        image = camera.cropImage(image)
+        # cv2.imwrite("cropped/cropped_image"+str(ITERATOR)+".jpg", image)
+        results = modelManager.classifyImage(image)
+    except:
+        print("Img unknown")
+        # cv2.imwrite("unknown/unknown_image"+str(ITERATOR)+".jpg", image)
+          # ITERATOR += 1
+        return -1    
+    #     print("Img unknown")
+    #     cv2.imwrite("cropped/unknown_image"+str(ITERATOR)+".jpg", image)
 
-    image = camera.cropImage()
-    cv2.imwrite("cropped_image.jpg", image)
-
-    results = modelManager.classifyImage(image)
+    ITERATOR += 1
     return results
 
 def classify_seed(modelManager, camera, serialManager):
     results = seed_processing(modelManager, camera)
+    if results == -1:
+        return "unknown"
     max_value = 0
     choice = ""
     print(results)
@@ -33,7 +47,7 @@ def classify_seed(modelManager, camera, serialManager):
             max_value = value
             choice = key
     
-    if(max_value < 0.7):
+    if(max_value < 0.5):
         serialManager.sendMessage("unknown")
         return "unknown"
     elif(choice == "pure"):
@@ -60,7 +74,6 @@ def main():
     it = 0
     detected = False
     ble_thread = None
-
     serialManager = SerialManager()
     
     # ble server
@@ -74,28 +87,19 @@ def main():
         ble_server.run()
 
     while True:
+        # print(state[it])
         if(state[it] == "boot"):
             serialManager.sendMessage("set_idle")
             it = 1
 
         if(state[it] == "idle"):
             message = serialManager.receiveMessage()
+            # print(message)
             if(message == "set_ready"):
                 it = 3
             if ble_thread is None or not ble_thread.is_alive():
                 ble_thread = threading.Thread(target=start_ble_server, daemon=True)
                 ble_thread.start()
-            # ELIF if(device is connected) sendMessage("set_sync") and it=2
-            # THIS WILL BE IMPLEMENTED INSIDE THE StartNotify function on "gatt_server_manager.py"
-
-            # THIS IS IMPLEMENtED INSIDE THE gatt_server_manager
-            # if(state[it] == "sync"):
-            #     print("Sync State")
-                # TODO: implement retrieve data from internal storage.
-                # TODO: encode data 
-                # TODO: send data using bluetooth
-                # TODO: if(data was sended):
-                # TODO:     delete data stored on raspberry pi -> it = 1
 
         if(state[it] == "ready"):
             dir_path = os.path.dirname(os.path.realpath(__file__))
@@ -114,15 +118,17 @@ def main():
             elif(message == "set_processing"):
                 print("set_processing")
                 detected = True
-                camera = CameraManager(camera_type="usb", usb_camera_index=0)
+                # camera = CameraManager(camera_type="usb", usb_camera_index=0)
                 it = 4
 
 
         if(state[it] == "processing"):
             if detected:
+                camera = CameraManager(camera_type="usb", usb_camera_index=0)
                 seed_type = classify_seed(modelManager, camera, serialManager)
                 data[seed_type] += 1
                 detected = False
+                camera.releaseCamera()
 
             message = serialManager.receiveMessage()
             if message == "detected":
@@ -131,7 +137,7 @@ def main():
                 it = 5
         
         if(state[it] == "saving"):
-            camera.releaseCamera()
+            # camera.releaseCamera()
             modelManager.releaseRunner()
             storageManager = StorageManager(data)
             storageManager.insert_data()

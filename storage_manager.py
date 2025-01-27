@@ -41,7 +41,7 @@ class StorageManager:
                 "Pure": self.data["pure"],
                 "Broken": self.data["broken"],
                 # "Discolored": self.data["discolored"],
-                "Silkcut": self.data["silkcut"],
+                "silkcut": self.data["silkcut"],
                 "Unknown": self.data["unknown"]
             },
             "timestamp": timestamp
