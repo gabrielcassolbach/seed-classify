@@ -19,6 +19,166 @@
                 "Unknown": 4
             },
             "timestamp": "2024-12-20T20:56:41Z"
+        },
+        {
+            "processId": "Process_003",
+            "classificationSummary": {
+                "Pure": 30,
+                "Broken": 2,
+                "silkcut": 25,
+                "Unknown": 4
+            },
+            "timestamp": "2025-01-27T15:14:47Z"
+        },
+        {
+            "processId": "Process_004",
+            "classificationSummary": {
+                "Pure": 40,
+                "Broken": 6,
+                "silkcut": 36,
+                "Unknown": 2
+            },
+            "timestamp": "2025-01-27T15:48:31Z"
+        },
+        {
+            "processId": "Process_005",
+            "classificationSummary": {
+                "Pure": 30,
+                "Broken": 5,
+                "silkcut": 18,
+                "Unknown": 0
+            },
+            "timestamp": "2025-01-27T15:57:51Z"
+        },
+        {
+            "processId": "Process_006",
+            "classificationSummary": {
+                "Pure": 1,
+                "Broken": 0,
+                "silkcut": 0,
+                "Unknown": 2
+            },
+            "timestamp": "2025-01-27T16:11:48Z"
+        },
+        {
+            "processId": "Process_007",
+            "classificationSummary": {
+                "Pure": 34,
+                "Broken": 3,
+                "silkcut": 16,
+                "Unknown": 2
+            },
+            "timestamp": "2025-01-27T16:27:13Z"
+        },
+        {
+            "processId": "Process_008",
+            "classificationSummary": {
+                "Pure": 27,
+                "Broken": 2,
+                "silkcut": 27,
+                "Unknown": 4
+            },
+            "timestamp": "2025-01-27T16:35:33Z"
+        },
+        {
+            "processId": "Process_009",
+            "classificationSummary": {
+                "Pure": 25,
+                "Broken": 2,
+                "silkcut": 27,
+                "Unknown": 5
+            },
+            "timestamp": "2025-01-27T17:51:14Z"
+        },
+        {
+            "processId": "Process_010",
+            "classificationSummary": {
+                "Pure": 17,
+                "Broken": 2,
+                "silkcut": 38,
+                "Unknown": 5
+            },
+            "timestamp": "2025-01-27T17:56:34Z"
+        },
+        {
+            "processId": "Process_011",
+            "classificationSummary": {
+                "Pure": 14,
+                "Broken": 1,
+                "silkcut": 20,
+                "Unknown": 2
+            },
+            "timestamp": "2025-01-27T18:09:27Z"
+        },
+        {
+            "processId": "Process_012",
+            "classificationSummary": {
+                "Pure": 15,
+                "Broken": 3,
+                "silkcut": 28,
+                "Unknown": 4
+            },
+            "timestamp": "2025-01-27T18:14:36Z"
+        },
+        {
+            "processId": "Process_013",
+            "classificationSummary": {
+                "Pure": 72,
+                "Broken": 6,
+                "silkcut": 106,
+                "Unknown": 6
+            },
+            "timestamp": "2025-01-27T18:26:59Z"
+        },
+        {
+            "processId": "Process_014",
+            "classificationSummary": {
+                "Pure": 44,
+                "Broken": 2,
+                "silkcut": 45,
+                "Unknown": 5
+            },
+            "timestamp": "2025-01-27T19:20:10Z"
+        },
+        {
+            "processId": "Process_015",
+            "classificationSummary": {
+                "Pure": 1,
+                "Broken": 0,
+                "silkcut": 7,
+                "Unknown": 0
+            },
+            "timestamp": "2025-01-27T19:22:41Z"
+        },
+        {
+            "processId": "Process_016",
+            "classificationSummary": {
+                "Pure": 18,
+                "Broken": 2,
+                "silkcut": 42,
+                "Unknown": 4
+            },
+            "timestamp": "2025-01-27T20:56:35Z"
+        },
+        {
+            "processId": "Process_017",
+            "classificationSummary": {
+                "Pure": 48,
+                "Broken": 9,
+                "silkcut": 99,
+                "Unknown": 10
+            },
+            "timestamp": "2025-01-27T21:09:30Z"
+        },
+        {
+            "processId": "Process_018",
+            "classificationSummary": {
+                "Pure": 17,
+                "Broken": 6,
+                "silkcut": 66,
+                "Unknown": 7
+            },
+            "timestamp": "2025-01-27T21:29:08Z"
         }
     ]
 }
