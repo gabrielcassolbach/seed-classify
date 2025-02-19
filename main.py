@@ -43,6 +43,11 @@ def classify_seed(modelManager, camera, serialManager):
             max_value = value
             choice = key
 
+    # Apply the new rule: If "silkcut" and "broken" are both below 75%, classify as "pure"
+    if results.get("silkcut", 0) < 0.96 and results.get("broken", 0) < 0.96:
+        choice = "pure"
+        max_value = 1.0  # Force high confidence for "pure"
+
     folder = "unknown"
     if max_value < 0.5:
         serialManager.sendMessage("unknown")
@@ -53,9 +58,11 @@ def classify_seed(modelManager, camera, serialManager):
         folder = "irregular"
         serialManager.sendMessage("irregular")
     
-    next_image_number = get_next_image_number("images/"+folder)
-    cv2.imwrite(f"images/{folder}/{next_image_number}.jpg", image)
+    # Uncomment to save images and enhance model
+    # next_image_number = get_next_image_number("images/"+folder)
+    # cv2.imwrite(f"images/{folder}/{next_image_number}.jpg", image)
     return choice
+
 
 def main():
     dir_path = None

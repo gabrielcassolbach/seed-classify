@@ -67,3 +67,146 @@ class CameraManager:
 
         output_image = image[y1:y2, x1:x2]
         return output_image
+
+    # def cropImage(self, image):
+    #     height, width = image.shape[:2]
+
+    #     # Convert image to grayscale
+    #     gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+
+    #     # Apply GaussianBlur to reduce noise
+    #     blurred = cv2.GaussianBlur(gray_image, (5, 5), 0)
+
+    #     # Apply Otsu's thresholding
+    #     _, binary = cv2.threshold(blurred, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+
+    #     # Invert the image if necessary (ensuring the seed is white)
+    #     if np.mean(binary) > 127:
+    #         binary = cv2.bitwise_not(binary)
+
+    #     # Perform morphological opening to remove small noise
+    #     kernel = np.ones((5,5), np.uint8)
+    #     clean_binary = cv2.morphologyEx(binary, cv2.MORPH_OPEN, kernel, iterations=2)
+
+    #     # Find contours
+    #     contours, _ = cv2.findContours(clean_binary, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+
+    #     if not contours:
+    #         print("No seed detected!")
+    #         return image  # Return original image if no seed is found
+
+    #     # Find the largest contour (assuming it's the seed)
+    #     largest_contour = max(contours, key=cv2.contourArea)
+
+    #     # Get bounding box
+    #     x, y, w, h = cv2.boundingRect(largest_contour)
+
+    #     # Add margin
+    #     margin = 40
+    #     x1 = max(0, x - margin)
+    #     y1 = max(0, y - margin)
+    #     x2 = min(width, x + w + margin)
+    #     y2 = min(height, y + h + margin)
+
+    #     # Crop the image
+    #     output_image = image[y1:y2, x1:x2]
+
+    #     return output_image
+
+    # def cropImage(self, image):
+    #     height, width = image.shape[:2]
+
+    #     # Convert to grayscale
+    #     gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+
+    #     # Apply Gaussian Blur to remove noise
+    #     blurred = cv2.GaussianBlur(gray_image, (5, 5), 0)
+
+    #     # Apply Adaptive Thresholding
+    #     binary = cv2.adaptiveThreshold(blurred, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C,
+    #                                 cv2.THRESH_BINARY, 11, 2)
+
+    #     # Invert if needed
+    #     if np.mean(binary) > 127:
+    #         binary = cv2.bitwise_not(binary)
+
+    #     # Perform morphological opening
+    #     kernel = np.ones((5,5), np.uint8)
+    #     clean_binary = cv2.morphologyEx(binary, cv2.MORPH_OPEN, kernel, iterations=2)
+
+    #     # Find contours
+    #     contours, _ = cv2.findContours(clean_binary, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+
+    #     if not contours:
+    #         print("No seed detected!")
+    #         return image  # Return original if no seed found
+
+    #     # Select the largest contour (if it's large enough)
+    #     contours = [c for c in contours if cv2.contourArea(c) > 500]  # Ignore small noise
+    #     if not contours:
+    #         print("No valid seed detected!")
+    #         return image
+
+    #     largest_contour = max(contours, key=cv2.contourArea)
+    #     x, y, w, h = cv2.boundingRect(largest_contour)
+
+    #     # Apply margin and ensure within bounds
+    #     margin = 40
+    #     x1, y1 = max(0, x - margin), max(0, y - margin)
+    #     x2, y2 = min(width - 1, x + w + margin), min(height - 1, y + h + margin)
+
+    #     # Crop and return
+    #     output_image = image[y1:y2, x1:x2]
+        
+    #     return output_image
+
+    # def cropImage(self, image):
+    #     height, width = image.shape[:2]
+
+    #     # Convert to grayscale
+    #     gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+
+    #     # Apply Gaussian Blur to remove noise
+    #     blurred = cv2.GaussianBlur(gray_image, (5, 5), 0)
+
+    #     # Apply Adaptive Thresholding
+    #     binary = cv2.adaptiveThreshold(blurred, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C,
+    #                                 cv2.THRESH_BINARY, 11, 2)
+
+    #     # Invert if needed
+    #     if np.mean(binary) > 127:
+    #         binary = cv2.bitwise_not(binary)
+
+    #     # Perform morphological opening
+    #     kernel = np.ones((5,5), np.uint8)
+    #     clean_binary = cv2.morphologyEx(binary, cv2.MORPH_OPEN, kernel, iterations=2)
+
+    #     # Find contours
+    #     contours, _ = cv2.findContours(clean_binary, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+
+    #     if not contours:
+    #         print("No seed detected!")
+    #         return image  # Return original if no seed found
+
+    #     # Select the largest contour (if it's large enough)
+    #     contours = [c for c in contours if cv2.contourArea(c) > 500]  # Ignore small noise
+    #     if not contours:
+    #         print("No valid seed detected!")
+    #         return image
+
+    #     largest_contour = max(contours, key=cv2.contourArea)
+    #     x, y, w, h = cv2.boundingRect(largest_contour)
+
+    #     # Reduce margin for a tighter crop
+    #     margin = 20  # Smaller margin means more zoom
+    #     x1, y1 = max(0, x - margin), max(0, y - margin)
+    #     x2, y2 = min(width - 1, x + w + margin), min(height - 1, y + h + margin)
+
+    #     # Crop the image
+    #     cropped_image = image[y1:y2, x1:x2]
+
+    #     # Resize to make it appear more zoomed-in (scale by 1.5x)
+    #     zoomed_image = cv2.resize(cropped_image, None, fx=1.5, fy=1.5, interpolation=cv2.INTER_CUBIC)
+
+    #     return zoomed_image
+
